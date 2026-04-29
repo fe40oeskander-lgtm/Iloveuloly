@@ -1,0 +1,176 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Martin & Viola</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: white;
+      scroll-behavior: smooth;
+    }
+    .navbar {
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(10px);
+    }
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 20px;
+    }
+    .hero img {
+      width: 180px;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 4px solid white;
+      margin-bottom: 20px;
+      box-shadow: 0 0 25px rgba(255,255,255,0.25);
+    }
+    .section {
+      padding: 80px 20px;
+    }
+    .card-custom {
+      background: rgba(255,255,255,0.08);
+      border: none;
+      border-radius: 20px;
+      backdrop-filter: blur(8px);
+      color: white;
+      transition: transform 0.3s ease;
+    }
+    .card-custom:hover {
+      transform: translateY(-8px);
+    }
+    .interest-icon {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      color: #00d4ff;
+    }
+    .comment-box {
+      background: rgba(255,255,255,0.08);
+      padding: 20px;
+      border-radius: 20px;
+      margin-bottom: 15px;
+    }
+    footer {
+      background: rgba(0,0,0,0.6);
+      padding: 20px;
+      text-align: center;
+      margin-top: 50px;
+    }
+    .btn-custom {
+      background: #00d4ff;
+      border: none;
+      color: black;
+      font-weight: bold;
+    }
+    .btn-custom:hover {
+      background: white;
+    }
+  </style>
+</head>
+<body><nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="#">Martin ❤️ Viola</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="#story">Our Story</a></li>
+        <li class="nav-item"><a class="nav-link" href="#comments">Comments</a></li>
+      </ul>
+    </div>
+  </div>
+</nav><section class="hero">
+  <div class="container">
+    <img src="your-photo.jpg" alt="Martin and Viola">
+    <h1 class="display-3 fw-bold">Martin & Viola</h1>
+    <p class="lead">A beautiful story, memories, and moments together forever.</p>
+    <a href="#story" class="btn btn-custom btn-lg mt-3">Explore Our Story</a>
+  </div>
+</section><section id="about" class="section">
+  <div class="container text-center">
+    <h2 class="mb-5">About Us</h2>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card card-custom p-4 h-100">
+          <i class="fas fa-heart interest-icon"></i>
+          <h4>Love</h4>
+          <p>Built on trust, laughter, and unforgettable memories.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card card-custom p-4 h-100">
+          <i class="fas fa-camera interest-icon"></i>
+          <h4>Memories</h4>
+          <p>Capturing every special moment in our journey together.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card card-custom p-4 h-100">
+          <i class="fas fa-star interest-icon"></i>
+          <h4>Future</h4>
+          <p>Dreaming bigger and building a forever story.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section><section id="story" class="section bg-dark bg-opacity-25">
+  <div class="container text-center">
+    <h2 class="mb-4">Our Story</h2>
+    <p class="lead">Welcome to our personal page. This website celebrates Martin and Viola, their connection, shared dreams, and unforgettable journey together. Every chapter is filled with love, growth, and endless support.</p>
+  </div>
+</section><section id="comments" class="section">
+  <div class="container">
+    <h2 class="text-center mb-5">Leave a Comment</h2>
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <form id="commentForm" class="mb-4">
+          <input type="text" id="name" class="form-control mb-3" placeholder="Your Name" required>
+          <textarea id="comment" class="form-control mb-3" rows="4" placeholder="Your Comment" required></textarea>
+          <button type="submit" class="btn btn-custom w-100">Post Comment</button>
+        </form>
+        <div id="commentList"></div>
+      </div>
+    </div>
+  </div>
+</section><footer>
+  <p>Made with ❤️ for Martin & Viola</p>
+</footer><script>
+  const commentForm = document.getElementById('commentForm');
+  const commentList = document.getElementById('commentList');
+
+  let comments = JSON.parse(localStorage.getItem('mv_comments')) || [];
+
+  function renderComments() {
+    commentList.innerHTML = '';
+    comments.forEach(c => {
+      const div = document.createElement('div');
+      div.classList.add('comment-box');
+      div.innerHTML = `<h5>${c.name}</h5><p>${c.comment}</p>`;
+      commentList.appendChild(div);
+    });
+  }
+
+  commentForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const name = document.getElementById('name').value;
+    const comment = document.getElementById('comment').value;
+
+    comments.unshift({ name, comment });
+    localStorage.setItem('mv_comments', JSON.stringify(comments));
+    renderComments();
+    commentForm.reset();
+  });
+
+  renderComments();
+</script><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script></body>
+</html>
